@@ -24,7 +24,7 @@ class ServerAPI {
             if(retrofit == null) {
                 retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL) // 어느 서버를 기반으로 움직일건지 설정.
-                    .addConverterFactory( GsonConverterFactory.create() )//
+                    .addConverterFactory( GsonConverterFactory.create() )// gson 라이브러리와 결합
                     .build()
             }
             
