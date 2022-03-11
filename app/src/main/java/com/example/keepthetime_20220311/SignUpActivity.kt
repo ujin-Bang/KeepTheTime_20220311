@@ -41,7 +41,8 @@ class SignUpActivity : BaseActivity() {
 
                   if(response.isSuccessful){
 
-                      Toast.makeText(mContext, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
+                      val br = response.body()!!
+                      Toast.makeText(mContext, "${br.data.user.id}번째 회원이십니다. 가입을 축하드려요", Toast.LENGTH_SHORT).show()
                         finish()
                   }
 
