@@ -34,6 +34,7 @@ class MyFriendAdapter(
         val txtEmail = row.findViewById<TextView>(R.id.txtEmail)
         val imgSosialLogo = row.findViewById<ImageView>(R.id.imgSosialLogo)
 
+
         Glide.with(mContext).load(data.profile_img).into(imgProfile)
         txtNickname.text = data.nick_name
 
@@ -44,18 +45,29 @@ class MyFriendAdapter(
 //                이메일 표시
                 txtEmail.text = data.email
 //                로고 이미지 숨김
+                imgSosialLogo.visibility = View.GONE
             }
             "kakao" -> {
 //                "카카오로그인"
                 txtEmail.text = "카카오 로그인"
 //                로고이미지 : 카카오 아이콘
+                imgSosialLogo.visibility = View.VISIBLE
+                Glide.with(mContext).load(R.drawable.kakao_logo).into(imgSosialLogo)
             }
             "facebook" -> {
                 txtEmail.text = "페북 로그인"
 
+                imgSosialLogo.visibility = View.VISIBLE
+                Glide.with(mContext).load(R.drawable.kakao_logo).into(imgSosialLogo)
+
             }
             "naver" -> {
                 txtEmail.text = "네이버 로그인"
+
+                imgSosialLogo.visibility = View.VISIBLE
+
+//                Glide는 웹의 이미지뿐 아니라 , 우리 프로젝트 내부의 이미지도 불러낼 수 있다.
+                Glide.with(mContext).load(R.drawable.kakao_logo).into(imgSosialLogo)
 
             }
             else -> {
