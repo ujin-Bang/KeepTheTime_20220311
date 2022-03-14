@@ -52,13 +52,13 @@ class MyFriendAdapter(
                 txtEmail.text = "카카오 로그인"
 //                로고이미지 : 카카오 아이콘
                 imgSosialLogo.visibility = View.VISIBLE
-                Glide.with(mContext).load(R.drawable.kakao_logo).into(imgSosialLogo)
+                Glide.with(mContext).load(R.drawable.naver_logo).into(imgSosialLogo)
             }
             "facebook" -> {
                 txtEmail.text = "페북 로그인"
 
                 imgSosialLogo.visibility = View.VISIBLE
-                Glide.with(mContext).load(R.drawable.kakao_logo).into(imgSosialLogo)
+                Glide.with(mContext).load(R.drawable.naver_logo).into(imgSosialLogo)
 
             }
             "naver" -> {
@@ -67,7 +67,7 @@ class MyFriendAdapter(
                 imgSosialLogo.visibility = View.VISIBLE
 
 //                Glide는 웹의 이미지뿐 아니라 , 우리 프로젝트 내부의 이미지도 불러낼 수 있다.
-                Glide.with(mContext).load(R.drawable.kakao_logo).into(imgSosialLogo)
+                Glide.with(mContext).load(R.drawable.naver_logo).into(imgSosialLogo)
 
             }
             else -> {
