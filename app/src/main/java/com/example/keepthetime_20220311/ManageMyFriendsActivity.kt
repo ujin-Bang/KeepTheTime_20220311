@@ -1,11 +1,10 @@
 package com.example.keepthetime_20220311
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
-import com.example.keepthetime_20220311.adapters.MyFriendAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.keepthetime_20220311.adapters.MyFriendRecyclerAdapterr
 import com.example.keepthetime_20220311.databinding.ActivityManageMyFriendsBinding
 import com.example.keepthetime_20220311.datas.BasicResponse
 import com.example.keepthetime_20220311.datas.UserData
@@ -20,7 +19,7 @@ class ManageMyFriendsActivity : BaseActivity() {
 
     val mFriendList = ArrayList<UserData>()
 
-    lateinit var mAdapter: MyFriendAdapter
+    lateinit var mAdapter: MyFriendRecyclerAdapterr
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +42,10 @@ class ManageMyFriendsActivity : BaseActivity() {
 
         getMyFriendListFromServer()
 
-        mAdapter = MyFriendAdapter(mContext, R.layout.my_friend_list_item, mFriendList)
-        binding.myFriendsListView.adapter = mAdapter
+        mAdapter = MyFriendRecyclerAdapterr(mContext, mFriendList)
+        binding.myFriendsRecyclerView.adapter = mAdapter
+
+        binding.myFriendsRecyclerView.layoutManager = LinearLayoutManager(mContext)
     }
 
     fun getMyFriendListFromServer() {
@@ -54,6 +55,8 @@ class ManageMyFriendsActivity : BaseActivity() {
             "my" // 수락 완료된 친구목록만 불러오기
         ).enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+                mFriendList.clear()
 
                 if(response.isSuccessful){
 
