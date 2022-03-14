@@ -38,12 +38,12 @@ class SearchedUserRecyclerAdapter(
                 }
                 "kakao" -> {
                     imgSosialLogo.visibility = View.VISIBLE
-                    imgSosialLogo.setImageResource(R.drawable.naver_logo)
+                    imgSosialLogo.setImageResource(R.drawable.kakao_logo)
                     txtEmail.text = "카카오 로그인"
                 }
                 "facebook" -> {
                     imgSosialLogo.visibility = View.VISIBLE
-                    imgSosialLogo.setImageResource(R.drawable.naver_logo)
+                    imgSosialLogo.setImageResource(R.drawable.facebook_logo)
                     txtEmail.text = "페이스북 로그인"
                 }
                 "naver" -> {
