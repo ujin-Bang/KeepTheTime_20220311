@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.keepthetime_20220311.R
 import com.example.keepthetime_20220311.databinding.FragmentMyProfileBinding
 import com.example.keepthetime_20220311.datas.BasicResponse
@@ -48,6 +49,9 @@ class MyProfileFragment: BaseFragment() {
                     val br = response.body()!!
 
                    binding.txtNickname.text =  br.data.user.nick_name //프래그먼트의 txtNickname은 어떻게 가져와야 하는가?
+
+                    Glide.with(mContext).load(br.data.user.profile_img).into(binding.imgProfile)
+
                 }
 
             }
