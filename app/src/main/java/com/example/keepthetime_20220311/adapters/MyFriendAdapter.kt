@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.keepthetime_20220311.R
@@ -28,14 +29,39 @@ class MyFriendAdapter(
 
         val data = mList[position]
 
-        val imgProfile = row.findViewById<TextView>(R.id.imgProfile)
+        val imgProfile = row.findViewById<ImageView>(R.id.imgProfile)
         val txtNickname = row.findViewById<TextView>(R.id.txtNickname)
         val txtEmail = row.findViewById<TextView>(R.id.txtEmail)
+        val imgSosialLogo = row.findViewById<ImageView>(R.id.imgSosialLogo)
 
         Glide.with(mContext).load(data.profile_img).into(imgProfile)
         txtNickname.text = data.nick_name
-        txtEmail.text = data.email
 
+//        사용자의 provider - "default" : 이메일 표시, "kakao" :카카오 로그인, "facebook":페북로그인 ,"naver": 네이버로그인
+//          txtEmail 자리에 반영
+        when (data.provider){
+            "default" -> {
+//                이메일 표시
+                txtEmail.text = data.email
+//                로고 이미지 숨김
+            }
+            "kakao" -> {
+//                "카카오로그인"
+                txtEmail.text = "카카오 로그인"
+//                로고이미지 : 카카오 아이콘
+            }
+            "facebook" -> {
+                txtEmail.text = "페북 로그인"
+
+            }
+            "naver" -> {
+                txtEmail.text = "네이버 로그인"
+
+            }
+            else -> {
+//                그외 잘못된 경우
+            }
+        }
         return row
     }
 

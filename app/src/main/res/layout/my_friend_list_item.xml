@@ -35,7 +35,7 @@
             android:layout_marginTop="3dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgSosialLogin"
+                android:id="@+id/imgSosialLogo"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@mipmap/ic_launcher"
