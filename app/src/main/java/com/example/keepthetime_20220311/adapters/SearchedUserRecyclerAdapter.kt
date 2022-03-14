@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.keepthetime_20220311.R
 import com.example.keepthetime_20220311.datas.UserData
 
@@ -27,7 +28,30 @@ class SearchedUserRecyclerAdapter(
 //        실 데이터 반영 기능이 있는 함수
         fun bind(data: UserData) {
             txtNickname.text = data.nick_name
-            txtEmail.text = data.email
+            Glide.with(mContext).load(data.profile_img).into(imgProfile)
+
+            when(data.provider) {
+                "default" -> {
+                    imgSosialLogo.visibility = View.GONE
+
+                    txtEmail.text = data.email
+                }
+                "kakao" -> {
+                    imgSosialLogo.visibility = View.VISIBLE
+                    imgSosialLogo.setImageResource(R.drawable.naver_logo)
+                    txtEmail.text = "카카오 로그인"
+                }
+                "facebook" -> {
+                    imgSosialLogo.visibility = View.VISIBLE
+                    imgSosialLogo.setImageResource(R.drawable.naver_logo)
+                    txtEmail.text = "페이스북 로그인"
+                }
+                "naver" -> {
+                    imgSosialLogo.visibility = View.VISIBLE
+                    imgSosialLogo.setImageResource(R.drawable.naver_logo)
+                    txtEmail.text = "네이버 로그인"
+                }
+            }
         }
 
     }
