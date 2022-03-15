@@ -5,13 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.keepthetime_20220311.R
+import com.example.keepthetime_20220311.adapters.RequestUserRecyclerAdapterr
 import com.example.keepthetime_20220311.databinding.FragmentMyFriendsBinding
 import com.example.keepthetime_20220311.databinding.FragmentRequestedUsersBinding
+import com.example.keepthetime_20220311.datas.BasicResponse
+import com.example.keepthetime_20220311.datas.UserData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RequestedUserFragment: BaseFragment() {
 
     lateinit var binding: FragmentRequestedUsersBinding
+
+    val mRequestedUserList = ArrayList<UserData>()
+
+    lateinit var mAdapter : RequestUserRecyclerAdapterr
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +44,37 @@ class RequestedUserFragment: BaseFragment() {
     }
 
     override fun setValues() {
+//        나에게 친구 요청한 사람 목록을 > 리싸이클러뷰로 보여주기
+//        API: getRequestFriendList 함수 -> "requested"로 대입
 
+        getRequestedUserFromServer()
+
+        mAdapter = RequestUserRecyclerAdapterr(mContext, mRequestedUserList)
+        binding.requestUsersRecyclerView.adapter = mAdapter
+
+        binding.requestUsersRecyclerView.layoutManager = LinearLayoutManager(mContext)
+    }
+
+    fun getRequestedUserFromServer(){
+
+        apiList.getRequestFriendLis("requested").enqueue(object :Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+                if(response.isSuccessful){
+
+                    mRequestedUserList.clear()
+
+                    mRequestedUserList.addAll(response.body()!!.data.friends)
+
+                    mAdapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+
+
+        })
     }
 }
