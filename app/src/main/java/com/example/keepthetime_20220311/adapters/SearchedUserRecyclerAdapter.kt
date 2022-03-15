@@ -10,14 +10,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.keepthetime_20220311.R
+import com.example.keepthetime_20220311.api.APIList
+import com.example.keepthetime_20220311.api.ServerAPI
 import com.example.keepthetime_20220311.datas.UserData
 
 class SearchedUserRecyclerAdapter(
     val mContext: Context,
     val mList: List<UserData>
-): RecyclerView.Adapter<SearchedUserRecyclerAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<SearchedUserRecyclerAdapter.MyViewHolder>() {
 
-    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val imgProfile = view.findViewById<ImageView>(R.id.imgProfile)
         val txtNickname = view.findViewById<TextView>(R.id.txtNickname)
@@ -25,12 +27,12 @@ class SearchedUserRecyclerAdapter(
         val txtEmail = view.findViewById<TextView>(R.id.txtEmail)
         val btnAddFriend = view.findViewById<Button>(R.id.btnAddFriend)
 
-//        실 데이터 반영 기능이 있는 함수
+        //        실 데이터 반영 기능이 있는 함수
         fun bind(data: UserData) {
             txtNickname.text = data.nick_name
             Glide.with(mContext).load(data.profile_img).into(imgProfile)
 
-            when(data.provider) {
+            when (data.provider) {
                 "default" -> {
                     imgSosialLogo.visibility = View.GONE
 
@@ -52,6 +54,14 @@ class SearchedUserRecyclerAdapter(
                     txtEmail.text = "네이버 로그인"
                 }
             }
+
+//    친구 추가 버튼이 눌리면 할 일 => 친구 추가 요청 API 호출
+//    어댑터에서 => API 호출? => 레트로핏 객체 직접 생성해서 호출
+
+            val retrofit = ServerAPI.getRetrofit()
+            val apiList = retrofit.create(APIList::class.java)
+            apiList.
+
         }
 
     }
@@ -61,7 +71,8 @@ class SearchedUserRecyclerAdapter(
 //        xml을 inflate해와서 => 이를 가지고 MyViewHolder 객체로 생성, 리턴
 //        재사용성을 알아서 보존해줌
 
-        val row = LayoutInflater.from(mContext).inflate(R.layout.searched_user_list_item, parent, false)
+        val row =
+            LayoutInflater.from(mContext).inflate(R.layout.searched_user_list_item, parent, false)
 
         return MyViewHolder(row)
     }
@@ -79,6 +90,6 @@ class SearchedUserRecyclerAdapter(
 
     }
 
-//    몇개의 아이템을 보여줄 예정인지? => 데이터 목록의 갯수만큼.
+    //    몇개의 아이템을 보여줄 예정인지? => 데이터 목록의 갯수만큼.
     override fun getItemCount() = mList.size
 }
