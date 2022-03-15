@@ -17,9 +17,7 @@ class ManageMyFriendsActivity : BaseActivity() {
 
     lateinit var binding: ActivityManageMyFriendsBinding
 
-    val mFriendList = ArrayList<UserData>()
 
-    lateinit var mAdapter: MyFriendRecyclerAdapterr
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,45 +37,6 @@ class ManageMyFriendsActivity : BaseActivity() {
 
     override fun setValues() {
 
-
-        getMyFriendListFromServer()
-
-        mAdapter = MyFriendRecyclerAdapterr(mContext, mFriendList)
-        binding.myFriendsRecyclerView.adapter = mAdapter
-
-        binding.myFriendsRecyclerView.layoutManager = LinearLayoutManager(mContext)
-    }
-
-    fun getMyFriendListFromServer() {
-
-        apiList.getRequestFriendLis(
-            "my" // 수락 완료된 친구목록만 불러오기
-        ).enqueue(object : Callback<BasicResponse>{
-            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
-
-                mFriendList.clear()
-
-                if(response.isSuccessful){
-
-                    val br = response.body()!!
-
-//                    br.data.friends는 UserData 목록으로 이미 내려옴
-//                    목록의 내용물을 통째로 => mFriendList 변수의 내용물로 담자.
-
-                    mFriendList.addAll(br.data.friends)
-
-//                    어댑터 새로고침
-
-                    mAdapter.notifyDataSetChanged()
-
-                }
-            }
-
-            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-
-            }
-
-        })
 
     }
 }
