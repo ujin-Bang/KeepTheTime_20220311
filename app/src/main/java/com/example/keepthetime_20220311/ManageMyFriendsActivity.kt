@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.keepthetime_20220311.adapters.FriendViewPagerAdapter
 import com.example.keepthetime_20220311.adapters.MyFriendRecyclerAdapterr
 import com.example.keepthetime_20220311.databinding.ActivityManageMyFriendsBinding
 import com.example.keepthetime_20220311.datas.BasicResponse
@@ -17,7 +18,7 @@ class ManageMyFriendsActivity : BaseActivity() {
 
     lateinit var binding: ActivityManageMyFriendsBinding
 
-
+    lateinit var mAdapter: FriendViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,10 @@ class ManageMyFriendsActivity : BaseActivity() {
 
     override fun setValues() {
 
+        mAdapter = FriendViewPagerAdapter(supportFragmentManager)
+        binding.friendViewPager.adapter = mAdapter
+
+        binding.friendTabLayout.setupWithViewPager(binding.friendViewPager)
 
     }
 }
